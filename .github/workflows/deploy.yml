@@ -23,5 +23,5 @@ jobs:
       run: aws s3 sync ./frontend s3://${{secrets.S3_BUCKET}} --delete
 
     - name: Invalidate Cloudfront service
-      if: ${{ secrets.CLOUDFRONT_DIST_ID != '' }}
-      run: aws cloudfront create-invalidation --distribution-id ${{secrets.CLOUDFRONT_DIST_ID}} --paths "/*"
+      if: ${{ secrets.CLOUDFRONT_DIS_ID != '' }}
+      run: aws cloudfront create-invalidation --distribution-id ${{secrets.CLOUDFRONT_DIS_ID}} --paths "/*"
