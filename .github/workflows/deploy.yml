@@ -4,6 +4,9 @@ on:
   push:
     branches: [ main ]
 
+env: 
+  CLOUDFRONT_DIS_ID: ${{ secrets.CLOUDFRONT_DIS_ID }}
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -23,5 +26,5 @@ jobs:
       run: aws s3 sync ./frontend s3://${{secrets.S3_BUCKET}} --delete
 
     - name: Invalidate Cloudfront service
-      if: ${{ secrets.CLOUDFRONT_DIS_ID != '' }}
-      run: aws cloudfront create-invalidation --distribution-id ${{secrets.CLOUDFRONT_DIS_ID}} --paths "/*"
+      if: ${{ env.CLOUDFRONT_DIS_ID != ''}}
+      run: aws cloudfront create-invalidation --distribution-id ${{env.CLOUDFRONT_DIS_ID}} --paths "/*"
